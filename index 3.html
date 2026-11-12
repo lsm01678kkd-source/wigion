@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>위기ON – 국제사회 위기 상황 통합 지원 플랫폼</title>
+<style>
+:root{--bg:#f4f6fa;--card:#fff;--ink:#1c2433;--mute:#5d6b82;--line:#dfe4ec;--main:#1f5eff;--main-d:#1646c4;--red:#d93025;--org:#f08a00;--yel:#e8c400;--grn:#1e8e3e;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+button,input,select{font:inherit}
+.wrap{max-width:1000px;margin:0 auto;padding:16px 16px 40px}
+.hero{text-align:center;padding:56px 16px 40px}
+.hero h1{font-size:2.4rem;margin:0 0 8px;color:var(--main)}
+.hero p{color:var(--mute);margin:0 0 28px;font-size:1.1rem}
+.row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.btn{border:0;border-radius:10px;padding:12px 22px;cursor:pointer;font-weight:700;background:var(--main);color:#fff}
+.btn:hover{background:var(--main-d)}
+.btn.ghost{background:#fff;color:var(--main);border:1px solid var(--main)}
+.btn.sm{padding:6px 12px;font-size:.88rem;border-radius:8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:16px}
+.card h3{margin:0 0 6px}
+.sub{color:var(--mute);font-size:.92rem;margin:0 0 14px}
+.page-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 12px}
+.page-head h2{margin:0}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.tabs button{border:1px solid var(--line);background:#fff;padding:9px 16px;border-radius:999px;cursor:pointer;color:var(--mute);font-weight:600}
+.tabs button.on{background:var(--main);color:#fff;border-color:var(--main)}
+label{display:block;font-weight:600;margin:12px 0 4px;font-size:.92rem}
+input[type=text],input[type=password],input[type=number],select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--main);outline-offset:2px}
+.cb{display:flex;gap:8px;flex-wrap:wrap}
+.cb label{font-weight:500;margin:0;display:flex;align-items:center;gap:6px;border:1px solid var(--line);padding:6px 10px;border-radius:8px}
+.cb input{width:auto}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.msg{padding:10px 12px;border-radius:8px;margin-top:12px;font-size:.92rem}
+.msg.err{background:#fdecea;color:#a1271b}
+.badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:.78rem;font-weight:700;color:#fff;background:#6b778c}
+.b-ok{background:var(--grn)}.b-warn{background:var(--org)}.b-red{background:var(--red)}.b-blue{background:var(--main)}.b-gray{background:#8793a6}
+.rcpt{font-size:1.7rem;font-weight:800;letter-spacing:.06em;color:var(--main);background:#eef3ff;border-radius:10px;padding:10px 14px;display:inline-block;margin:6px 0}
+.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;margin:10px 0}
+.steps span{display:flex;align-items:center;justify-content:center;text-align:center;font-size:clamp(.62rem,2.9vw,.8rem);line-height:1.25;word-break:keep-all;padding:7px 2px;border-radius:8px;background:#eceff5;color:var(--mute)}
+.steps span.on{background:var(--main);color:#fff;font-weight:700}
+.steps span.past{background:#cfe0ff;color:var(--main-d)}
+.map{display:grid;grid-template-columns:repeat(3,1fr);grid-template-areas:"N C E" "W S K";gap:8px}
+.tile{border-radius:12px;padding:14px 10px;text-align:center;color:#fff;min-height:110px;display:flex;flex-direction:column;justify-content:center;gap:2px}
+.tile b{font-size:1.05rem}.tile .n{font-size:1.9rem;font-weight:800;line-height:1.1}
+.t-red{background:var(--red)}.t-org{background:var(--org)}.t-yel{background:var(--yel);color:#3a3000}
+.legend{font-size:.88rem;color:var(--mute);margin-top:8px}
+.bar{display:flex;align-items:center;gap:10px;margin:8px 0;font-size:.92rem}
+.bar .lb{width:150px;flex:none;min-width:0}.bar .tr{flex:1;background:#e6eaf2;border-radius:6px;height:18px;overflow:hidden}.bar .tr i{display:block;height:100%;background:var(--main)}
+.bar .v{width:70px;flex:none;text-align:right;color:var(--mute);font-size:.85rem}
+.req{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;background:#fff}
+.req .top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center}
+.req .meta{color:var(--mute);font-size:.9rem;margin:6px 0}
+.act{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.act select{width:auto;min-width:160px}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left}
+.hide{display:none}
+ul.plain{padding-left:20px;margin:6px 0}
+ul.plain li{margin:6px 0}
+@media(max-width:560px){.bar .lb{width:95px}.hero h1{font-size:2rem}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+/* ================== 기본 데이터 ================== */
+const TYPES=[{k:'disaster',ko:'재난 (지진·홍수 등)'},{k:'war',ko:'전쟁·분쟁 지역'},{k:'epidemic',ko:'감염병 확산 지역'}];
+const CATS=[{k:'medical',ko:'의료·응급 (Medical)'},{k:'food',ko:'식량·식수 (Food & Water)'},{k:'medicine',ko:'의약품 (Medicine)'},{k:'shelter',ko:'주거·대피소 (Shelter)'},{k:'psych',ko:'심리상담 (Psychological)'}];
+const AGST=[{k:'active',ko:'운영 중 (Active)',c:'b-ok'},{k:'saturated',ko:'포화 (Saturated)',c:'b-warn'},{k:'review',ko:'확인 필요 (Review Needed)',c:'b-gray'},{k:'closed',ko:'폐쇄 (Closed)',c:'b-red'}];
+/* 가상 6개 지역 + 지역명 별칭 (입력 방식이 달라도 상위 지역으로 분류) */
+const REG=[
+ {id:'N',ko:'북부 지구',al:['북부','북구','북쪽','용산동','상북동']},
+ {id:'S',ko:'남부 지구',al:['남부','남구','남쪽','하남동','청계동']},
+ {id:'E',ko:'동부 지구',al:['동부','동구','동쪽','해돋이동','새벽동']},
+ {id:'W',ko:'서부 지구',al:['서부','서구','서쪽','석양동','서래동']},
+ {id:'C',ko:'중앙 지구',al:['중앙','중구','중부','시청동','중앙동']},
+ {id:'K',ko:'해안 지구',al:['해안','해안가','항구동','바닷가','갯마을동']}];
+const FLOW=['received','reviewing','linked','progress','done'];
+const FLOWL={received:'접수',reviewing:'확인중',linked:'기관 연결',progress:'지원 진행',done:'완료'};
+const ORGS={
+ ocha:{name:'UN OCHA',role:'인도지원 조정'},
+ who:{name:'WHO',role:'보건·감염병 대응'},
+ unicef:{name:'UNICEF',role:'아동·심리 지원'},
+ wfp:{name:'WFP',role:'식량 지원'},
+ ifrc:{name:'IFRC',role:'적십자·구호'}};
+const TIPS={
+ disaster:['튼튼한 탁자 아래나 건물 중심부로 이동해 머리를 보호하세요.','엘리베이터 대신 계단을 이용하고, 가스·전기를 차단하세요.','침수 지역에서는 전기 시설에 접근하지 말고 높은 곳으로 대피하세요.','비상 가방(물, 식량, 의약품, 손전등, 배터리)을 챙기세요.','공식 대피소 위치와 가족 연락 방법을 미리 정하세요.'],
+ war:['창문에서 떨어진 건물 안쪽 낮은 층의 대피 공간으로 이동하세요.','공식 대피 경로와 안전 통로 안내를 확인하세요.','신분증과 필수 의약품, 충전된 통신기기를 지니세요.','불필요한 이동을 줄이고 확인되지 않은 소문을 공유하지 마세요.','국제기구가 지정한 인도주의 통로와 구호소 안내를 따르세요.'],
+ epidemic:['마스크를 착용하고 손을 자주 30초 이상 씻으세요.','증상이 있으면 다른 사람과 거리를 두고 의료기관에 먼저 연락하세요.','밀집된 장소를 피하고 실내를 자주 환기하세요.','깨끗한 물과 위생 용품을 확보하세요.','공식 방역 지침과 예방접종 안내를 확인하세요.']};
+
+/* ================== 상태 / 저장 ================== */
+const KEY='wigion_plan_v1';
+let S={view:'home',vtab:'info',atab:'map',ctype:'disaster',filter:'all',session:null,requests:[],agencies:[],myNo:''};
+function save(){try{localStorage.setItem(KEY,JSON.stringify({requests:S.requests,agencies:S.agencies}))}catch(e){}}
+function load(){let d=null;try{d=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){}
+ const ok=d&&Array.isArray(d.requests)&&Array.isArray(d.agencies)&&d.requests.every(r=>r&&typeof r.id==='string'&&FLOW.includes(r.status)&&REG.some(g=>g.id===r.region)&&TYPES.some(t=>t.k===r.type)&&CATS.some(c=>c.k===r.cat))&&d.agencies.every(a=>a&&ORGS[a.org]&&Array.isArray(a.cats)&&AGST.some(s=>s.k===a.status));
+ if(ok){S.requests=d.requests;S.agencies=d.agencies}else seed()}
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=s=>document.querySelector(s);
+const by=(arr,k)=>arr.find(x=>x.k===k)||{};
+const regOf=id=>REG.find(r=>r.id===id)||{};
+function fmt(t){const d=new Date(t);if(Number.isNaN(d.getTime()))return '-';const p=n=>String(n).padStart(2,'0');return d.getFullYear()+'.'+p(d.getMonth()+1)+'.'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes())}
+
+/* ================== 핵심 로직 (오류 해결 반영) ================== */
+/* 오류① 상태 변경은 현재 단계의 다음 단계로만 */
+const nextOf=r=>FLOW[FLOW.indexOf(r.status)+1]||null;
+/* 오류② 지역명 입력이 달라도 상위 지역으로 분류 (두 지역 이름이 섞이면 분류하지 않음) */
+function normRegion(input){
+ const n=String(input||'').toLowerCase().replace(/\s+/g,'').replace(/지구$/,'');
+ if(n.length<2)return null;
+ for(const r of REG){for(const a of r.al){if(n===a.replace(/\s+/g,''))return r.id}}
+ const hit=new Set();
+ for(const r of REG){for(const a of r.al){if(n.includes(a))hit.add(r.id)}}
+ if(hit.size>1)return null;
+ const best={};
+ for(const r of REG){for(const a of r.al){if(a.length>=3&&(n.includes(a)||a.includes(n)))best[r.id]=Math.max(best[r.id]||0,a.length)}}
+ const arr=Object.entries(best).sort((a,b)=>b[1]-a[1]);
+ return arr.length&&(!arr[1]||arr[0][1]>arr[1][1])?arr[0][0]:null}
+/* 오류③ 접수번호는 기존 번호와 비교하고 중복이면 다시 발급 */
+function newNo(){let no,t=0;do{const d=t<50?4:6;no='REQ-'+Math.floor(Math.pow(10,d-1)+Math.random()*9*Math.pow(10,d-1));t++}while(S.requests.some(r=>r.id===no));return no}
+/* 오류⑥ 운영 상태와 지원 가능 여부를 함께 확인: 포화·폐쇄 기관은 연결 대상에서 제외 */
+function eligible(r){const out=[];S.agencies.forEach(a=>{
+ if(a.status==='saturated'||a.status==='closed')return;
+ if(!a.cats.includes(r.cat))return;
+ if(a.region!=='ALL'&&a.region!==r.region)return;
+ if(!out.includes(a.org))out.push(a.org)});return out}
+
+function seed(){
+ const rows=[['N','disaster','medical',4,'received'],['N','disaster','shelter',12,'reviewing'],['N','disaster','food',8,'linked','unicef'],
+ ['N','disaster','medicine',3,'received'],['N','disaster','psych',6,'received'],['W','disaster','shelter',9,'progress','ifrc'],
+ ['W','disaster','food',5,'received'],['W','disaster','medical',2,'done','who'],['E','war','medical',7,'reviewing'],
+ ['E','war','shelter',15,'received'],['S','epidemic','medicine',20,'received'],['K','disaster','shelter',10,'received'],
+ ['S','war','food',3,'received'],['C','epidemic','medical',2,'received']];
+ S.requests=rows.map((x,i)=>({id:'REQ-'+(9921+i),type:x[1],cat:x[2],people:x[3],region:x[0],regionInput:regOf(x[0]).ko,
+  contact:'+000-555-01'+String(10+i),created:new Date().toISOString(),status:x[4],agency:x[5]||null}));
+ S.agencies=[
+  {id:'a1',org:'ocha',cats:['medical','shelter'],status:'active',region:'ALL'},
+  {id:'a2',org:'who',cats:['medical','medicine'],status:'active',region:'ALL'},
+  {id:'a3',org:'unicef',cats:['psych','food'],status:'active',region:'ALL'},
+  {id:'a4',org:'wfp',cats:['food'],status:'saturated',region:'N'},
+  {id:'a5',org:'ifrc',cats:['shelter','medical','psych'],status:'active',region:'ALL'},
+  {id:'a6',org:'ocha',cats:['food'],status:'closed',region:'ALL'}];
+ save()}
+
+/* ================== 화면 ================== */
+function render(){
+ const keep=(S.view==='victim'&&S.vtab==='req'&&$('#f-area'))?snap():null;
+ let body='';
+ if(S.view==='home')body=home();else if(S.view==='login')body=login();else if(S.view==='victim')body=victim();else body=agencyView();
+ $('#app').innerHTML='<div class="wrap">'+body+'</div>';
+ if(keep)restore(keep)}
+const FIELDS=['f-type','f-cat','f-people','f-area','f-contact','f-reg'];
+function snap(){const o={};FIELDS.forEach(i=>{const e=document.getElementById(i);if(e)o[i]=e.value});return o}
+function restore(o){FIELDS.forEach(i=>{const e=document.getElementById(i);if(e&&o[i])e.value=o[i]});
+ if(o['f-reg']){const b=$('#f-reg-box');if(b)b.classList.remove('hide')}}
+function go(v){S.view=v;window.scrollTo(0,0);render()}
+
+function home(){return `<div class="hero"><h1>위기ON</h1>
+ <p>재난·전쟁·감염병 피해자를 위한<br>국제사회 통합 지원 플랫폼</p>
+ <div class="row"><button class="btn" onclick="S.vtab='info';go('victim')">피해자: 바로 지원받기</button>
+ <button class="btn ghost" onclick="${S.session?"S.atab='map';go('agency')":"go('login')"}">지원기구 로그인</button></div></div>`}
+
+function login(){return `<div class="page-head"><h2>지원기구 인증 로그인</h2><button class="btn ghost sm" onclick="go('home')">뒤로</button></div>
+ <div class="card" style="max-width:460px;margin:0 auto">
+  <p class="sub">데모 계정: ocha, who, unicef, wfp, ifrc (비밀번호: 1234)</p>
+  <label for="l-id">기관 아이디</label><input type="text" id="l-id" autocomplete="username">
+  <label for="l-pw">비밀번호</label><input type="password" id="l-pw" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+  <div style="margin-top:14px"><button class="btn" style="width:100%" onclick="doLogin()">로그인</button></div>
+  <div id="l-msg"></div></div>`}
+function doLogin(){const id=$('#l-id').value.trim().toLowerCase(),pw=$('#l-pw').value;
+ if(ORGS[id]&&pw==='1234'){S.session={org:id};S.atab='map';go('agency')}
+ else $('#l-msg').innerHTML='<div class="msg err">아이디 또는 비밀번호가 올바르지 않습니다.</div>'}
+function logout(){S.session=null;go('home')}
+
+/* ---------- 피해자 ---------- */
+function victim(){
+ const tabs=[['info','대처정보'],['req','도움요청'],['mine','내요청확인']];
+ const c=S.vtab==='info'?vInfo():S.vtab==='req'?vReq():vMine();
+ return `<div class="page-head"><h2>피해자 지원 안내소</h2><button class="btn ghost sm" onclick="go('home')">처음으로</button></div>
+ <div class="tabs">${tabs.map(t=>`<button class="${S.vtab===t[0]?'on':''}" onclick="S.vtab='${t[0]}';render()">${t[1]}</button>`).join('')}</div>${c}`}
+
+function vInfo(){return `<div class="card"><label style="margin-top:0" for="ctype">위기 상황 선택</label>
+  <select id="ctype" onchange="S.ctype=this.value;render()">${TYPES.map(t=>`<option value="${t.k}" ${S.ctype===t.k?'selected':''}>${t.ko}</option>`).join('')}</select></div>
+ <div class="card"><h3>안전 수칙</h3><p class="sub">${by(TYPES,S.ctype).ko} 상황별 대처 방법과 안전 수칙입니다.</p>
+  <ul class="plain">${TIPS[S.ctype].map(t=>`<li>${esc(t)}</li>`).join('')}</ul></div>
+ <div class="card"><h3>의료·생활·안전 지원 안내</h3>
+  <p class="sub">UN OCHA 및 WHO 등 국제기구를 통해 식량 배급소, 임시 응급 의료소, 안전 대피소 위치 정보가 제공됩니다.</p>
+  <div class="grid"><div class="req"><b>식량 배급소</b><div class="meta">식량·식수 지급 위치와 시간 안내</div></div>
+  <div class="req"><b>임시 응급 의료소</b><div class="meta">응급 처치 및 의약품 지원 위치 안내</div></div>
+  <div class="req"><b>안전 대피소</b><div class="meta">주거·대피 가능 장소 안내</div></div></div></div>`}
+
+function vReq(){return `<div class="card" id="req-card"><h3>긴급 지원 요청서</h3>
+ <p class="sub">최소한의 정보로 빠르게 접수됩니다. (동네 단위까지만 입력)</p>
+ <label for="f-type">피해 유형</label><select id="f-type">${TYPES.map(t=>`<option value="${t.k}">${t.ko}</option>`).join('')}</select>
+ <label for="f-cat">지원 종류 선택</label><select id="f-cat">${CATS.map(t=>`<option value="${t.k}">${t.ko}</option>`).join('')}</select>
+ <label for="f-people">피해 인원</label><input type="number" id="f-people" min="1" max="1000000" step="1" value="1">
+ <label for="f-area">동네 단위 지역 (예: 용산동, 북부 지구 등)</label><input type="text" id="f-area" maxlength="60" oninput="areaHint()">
+ <div id="f-reg-box" class="hide"><label for="f-reg">입력한 지역을 자동으로 분류하지 못했습니다. 가까운 지구를 선택해 주세요.</label>
+  <select id="f-reg"><option value="">지구 선택</option>${REG.map(r=>`<option value="${r.id}">${r.ko}</option>`).join('')}</select></div>
+ <div id="f-hint" class="sub" style="margin-top:4px"></div>
+ <label for="f-contact">연락 방법 (메시지 수신용 번호 또는 임시 코드)</label><input type="text" id="f-contact" maxlength="80">
+ <div style="margin-top:14px"><button class="btn" onclick="submitReq()">지원 요청 접수하기</button></div>
+ <div id="f-msg"></div></div>`}
+function areaHint(){const v=$('#f-area').value,h=$('#f-hint');if(v.trim().length<2){h.textContent='';return}
+ const r=normRegion(v);h.textContent=r?'→ 분류 지역: '+regOf(r).ko:''}
+function submitReq(){
+ const type=$('#f-type').value,cat=$('#f-cat').value,people=parseInt($('#f-people').value,10),area=$('#f-area').value.trim(),contact=$('#f-contact').value.trim(),m=$('#f-msg');
+ const err=t=>{m.innerHTML=`<div class="msg err">${t}</div>`};
+ if(!Number.isSafeInteger(people)||people<1||people>1000000)return err('피해 인원은 1명 이상 1,000,000명 이하의 정수로 입력해 주세요.');
+ if(!area)return err('지역을 입력해 주세요.');
+ if(!contact)return err('연락 방법을 입력해 주세요.');
+ let reg=normRegion(area);
+ if(!reg){const sel=$('#f-reg').value;$('#f-reg-box').classList.remove('hide');if(!sel)return err('지역을 자동으로 분류하지 못했습니다. 지구를 선택해 주세요.');reg=sel}
+ const r={id:newNo(),type,cat,people,region:reg,regionInput:area,contact,created:new Date().toISOString(),status:'received',agency:null};
+ S.requests.unshift(r);S.myNo=r.id;save();
+ $('#req-card').innerHTML=`<h3>접수 완료</h3>
+  <p class="sub">아래 접수번호를 꼭 저장하세요. 내요청확인에서 이 번호로 진행 상태를 확인할 수 있습니다.</p>
+  <div class="rcpt">${esc(r.id)}</div>
+  <div class="req" style="margin-top:8px"><div class="meta">${by(TYPES,type).ko} · ${by(CATS,cat).ko} · ${people}명 · ${regOf(reg).ko}</div></div>
+  <div class="row" style="justify-content:flex-start;margin-top:12px"><button class="btn" onclick="S.vtab='mine';render()">내 요청 확인</button><button class="btn ghost" onclick="S.vtab='req';render()">새 요청</button></div>`}
+
+function stepsHtml(st){const i=FLOW.indexOf(st);return `<div class="steps">${FLOW.map((f,j)=>`<span class="${j<i?'past':j===i?'on':''}">${FLOWL[f]}</span>`).join('')}</div>`}
+/* 오류⑤ 접수번호와 일치하는 요청만 조회 */
+function vMine(){return `<div class="card"><h3>내 요청 진행 상태</h3>
+ <p class="sub">발급받은 접수번호로 처리 상태를 확인합니다. 입력한 번호와 일치하는 요청만 표시됩니다.</p>
+ <label for="m-no" style="margin-top:0">접수번호</label>
+ <div class="row" style="justify-content:flex-start;flex-wrap:nowrap"><input type="text" id="m-no" value="${esc(S.myNo)}" placeholder="REQ-0000" onkeydown="if(event.key==='Enter')lookup()"><button class="btn" onclick="lookup()" style="white-space:nowrap">조회</button></div>
+ <div id="m-res">${S.myNo?myResult(S.myNo):''}</div></div>`}
+function lookup(){S.myNo=$('#m-no').value.trim().toUpperCase();$('#m-res').innerHTML=S.myNo?myResult(S.myNo):''}
+function myResult(no){const r=S.requests.find(x=>x.id===no);
+ if(!r)return '<div class="msg err">일치하는 접수번호가 없습니다. 번호를 다시 확인해 주세요.</div>';
+ return `<div class="req" style="margin-top:14px"><div class="top"><b>${esc(r.id)}</b><span class="badge b-blue">${FLOWL[r.status]}</span></div>
+ ${stepsHtml(r.status)}
+ <div class="meta">${by(TYPES,r.type).ko} · ${by(CATS,r.cat).ko} · ${r.people}명 · ${regOf(r.region).ko}</div>
+ <div class="meta">연결 기관: ${r.agency&&ORGS[r.agency]?ORGS[r.agency].name:'아직 연결 전'}</div>
+ <div class="meta">접수 시각: ${fmt(r.created)}</div></div>`}
+
+/* ---------- 지원기구 ---------- */
+function agencyView(){
+ if(!S.session){S.view='login';return login()}
+ const o=ORGS[S.session.org];
+ const tabs=[['map','피해 현황'],['reqs','지원 요청'],['reg','지원 등록']];
+ const c=S.atab==='map'?aMap():S.atab==='reqs'?aReqs():aReg();
+ return `<div class="page-head"><h2>${o.name} (${o.role})</h2><button class="btn ghost sm" onclick="logout()">로그아웃</button></div>
+ <div class="tabs">${tabs.map(t=>`<button class="${S.atab===t[0]?'on':''}" onclick="S.atab='${t[0]}';render()">${t[1]}</button>`).join('')}</div>${c}`}
+
+function aMap(){
+ const tiles=REG.map(g=>{const rs=S.requests.filter(r=>r.region===g.id),n=rs.length,pp=rs.reduce((a,r)=>a+r.people,0),
+  cls=n>=5?'t-red':n>=2?'t-org':'t-yel';
+  return `<div class="tile ${cls}" style="grid-area:${g.id}"><b>${g.ko}</b><span class="n">${n}</span><span>요청 ${n}건 · 피해 ${pp}명</span></div>`}).join('');
+ const max=Math.max(1,...CATS.map(c=>S.requests.filter(r=>r.cat===c.k).length));
+ const bars=CATS.map(c=>{const n=S.requests.filter(r=>r.cat===c.k).length;
+  return `<div class="bar"><span class="lb">${c.ko}</span><span class="tr"><i style="width:${n/max*100}%"></i></span><span class="v">${n}건</span></div>`}).join('');
+ return `<div class="card"><h3>지역별 피해 현황 지도 (가상 6개 지역)</h3>
+  <p class="sub">색상과 숫자로 피해 규모를 파악합니다.</p>
+  <div class="map">${tiles}</div><div class="legend">범례: 🔴 대규모 (5건 이상) | 🟠 주의 (2~4건) | 🟡 안정 (0~1건)</div></div>
+ <div class="card"><h3>지원 분야별 피해 요청 통계</h3>${bars}</div>`}
+
+function aReqs(){
+ const f=S.filter,list=S.requests.filter(r=>f==='all'||r.type===f);
+ return `<div class="card"><h3>피해자 지원 요청 목록 (실시간 연동)</h3>
+ <p class="sub">요청을 확인하고 상태를 변경하면 피해자의 ‘내 요청’에 즉시 반영됩니다. 상태는 순서대로만 변경할 수 있습니다.</p>
+ <label for="flt" style="margin-top:0">피해 유형 필터</label>
+ <select id="flt" onchange="S.filter=this.value;render()" style="max-width:300px"><option value="all">전체</option>${TYPES.map(t=>`<option value="${t.k}" ${f===t.k?'selected':''}>${t.ko}</option>`).join('')}</select></div>
+ ${list.length?list.map(reqCard).join(''):'<div class="card sub">표시할 요청이 없습니다.</div>'}`}
+
+function reqCard(r){
+ const nx=nextOf(r);let act='';
+ if(!nx)act='<div class="meta">지원이 완료된 요청입니다.</div>';
+ else if(nx==='linked'){const el=eligible(r);
+  act=el.length?`<select id="ag-${r.id}">${el.map(o=>`<option value="${o}">${ORGS[o].name}</option>`).join('')}</select><button class="btn sm" onclick="advance('${r.id}')">기관 연결</button>`
+   :'<span class="msg err" style="margin:0">연결 가능한 기관이 없습니다. (포화·폐쇄 상태이거나 해당 분야·지역을 담당하지 않는 기관은 제외됩니다.)</span>'}
+ else act=`<button class="btn sm" onclick="advance('${r.id}')">다음 단계로: ${FLOWL[nx]}</button>`;
+ return `<div class="req"><div class="top"><b>${esc(r.id)}</b><span class="badge b-blue">${FLOWL[r.status]}</span></div>
+ <div class="meta">${by(TYPES,r.type).ko} · ${by(CATS,r.cat).ko} · ${r.people}명 · ${regOf(r.region).ko}${r.regionInput===regOf(r.region).ko?'':` (입력: ${esc(r.regionInput)})`}</div>
+ <div class="meta">연락처: ${esc(r.contact)} · 연결 기관: ${r.agency&&ORGS[r.agency]?ORGS[r.agency].name:'-'} · ${fmt(r.created)}</div>
+ ${stepsHtml(r.status)}<div class="act">${act}</div></div>`}
+
+function advance(id){const r=S.requests.find(x=>x.id===id);if(!r)return;const nx=nextOf(r);if(!nx)return;
+ if(nx==='linked'){const sel=$('#ag-'+id);const org=sel&&sel.value;if(!org||!eligible(r).includes(org))return;r.agency=org}
+ r.status=nx;save();render()}
+
+function aReg(){
+ const row=a=>`<tr><td>${ORGS[a.org].name}</td><td>${a.cats.map(k=>by(CATS,k).ko).join(', ')}</td><td>${a.region==='ALL'?'전체':regOf(a.region).ko}</td><td><span class="badge ${by(AGST,a.status).c}">${by(AGST,a.status).ko}</span></td></tr>`;
+ return `<div class="card"><h3>우리 기관 지원 현황 등록</h3>
+ <p class="sub">현재 투입 가능한 지원 분야와 가동 상태를 등록합니다.</p>
+ <label style="margin-top:0">지원 분야</label><div class="cb">${CATS.map(c=>`<label><input type="checkbox" name="rc" value="${c.k}"> ${c.ko}</label>`).join('')}</div>
+ <label for="r-st">상태 배지 선택</label><select id="r-st">${AGST.map(s=>`<option value="${s.k}">${s.ko}</option>`).join('')}</select>
+ <label for="r-rg">담당 지역</label><select id="r-rg"><option value="ALL">전체 지역</option>${REG.map(r=>`<option value="${r.id}">${r.ko}</option>`).join('')}</select>
+ <div style="margin-top:14px"><button class="btn" onclick="addAg()">지원 정보 등록 및 게시</button></div><div id="r-msg"></div></div>
+ <div class="card"><h3 style="font-size:1rem">등록된 기관 지원 정보</h3>
+ <div style="overflow-x:auto"><table><tr><th>기관</th><th>지원 분야</th><th>담당 지역</th><th>상태</th></tr>${S.agencies.map(row).join('')}</table></div></div>`}
+function addAg(){const cats=[...document.querySelectorAll('input[name=rc]:checked')].map(x=>x.value);
+ if(!cats.length){$('#r-msg').innerHTML='<div class="msg err">지원 분야를 하나 이상 선택해 주세요.</div>';return}
+ S.agencies.push({id:'a'+Date.now(),org:S.session.org,cats,status:$('#r-st').value,region:$('#r-rg').value});save();render()}
+
+load();render();
+</script>
+</body>
+</html>
